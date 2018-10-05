@@ -19,7 +19,6 @@ router.get('/:id', (req, res) => {
     .catch(err => console.log(err));
 }); // supply projectModel ID, recieve projectModel object
 
-
 router.post('/', (req, res) => {
   projectModel.insert(req.body)
     .then(() => res.json({ message: `Success!` }))
@@ -36,17 +35,17 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   projectModel.remove(req.params.id)
-    .then(removed => {
-      res.json({ message: `Success: ${req.params.id} was deleted. Removed ${removed} action.` })
+    .then(removedProjectCount => {
+      res.json({ message: `Success: ${req.params.id} was deleted. Removed ${removedProjectCount} action.` })
     })
     .catch(err => console.log(err));
 })
-// router.get('/projectactions/:id', (req, res) => {
-//   projectModel.getProjectActions(req.params.id)
-//     .then(project => {
-//       res.json(project);
-//     })
-//     .catch(err => console.log(err));
-// }); // supply project ID, recieve project actions
+router.get('/projectactions/:id', (req, res) => {
+  projectModel.getProjectActions(req.params.id)
+    .then(project => {
+      res.json(project);
+    })
+    .catch(err => console.log(err));
+}); // supply project ID, recieve project actions
 
 module.exports = router;

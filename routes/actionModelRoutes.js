@@ -5,6 +5,7 @@ const actionModel = require('../data/helpers/actionModel');
 router.get('/', (req, res) => {
   actionModel.get()
     .then(actionModel => {
+      if (!actionModel) { return res.json({ message: `no user by that id` }) }
       res.json(actionModel);
     })
     .catch(err => console.log(err));
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   actionModel.get(req.params.id)
     .then(actionModel => {
-      if (!actionModel) { return res.json({ message: `no actionModel by that id` }) }
+      if (!actionModel) { return res.json({ message: `no actionModel by id: ${req.params.id}` }) }
       res.json(actionModel);
     })
     .catch(err => console.log(err));
