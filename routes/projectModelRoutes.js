@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     .then(projectModel => {
       res.json(projectModel);
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log({ Message: `Error: ${err}` }));
 }) // return all projects
 
 router.get('/:id', (req, res) => {
@@ -16,13 +16,13 @@ router.get('/:id', (req, res) => {
       if (!projectModel) { return res.json({ message: `no projectModel by that id` }) }
       res.json(projectModel);
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log({ Message: `Error: ${err}` }));
 }); // supply projectModel ID, recieve projectModel object
 
 router.post('/', (req, res) => {
   projectModel.insert(req.body)
     .then(() => res.json({ message: `Success!` }))
-    .catch(err => console.log(err));
+    .catch(err => console.log({ Message: `Error: ${err}` }));
 }); // add project, return project
 
 router.put('/:id', (req, res) => {
@@ -30,7 +30,7 @@ router.put('/:id', (req, res) => {
     .then(() => {
       res.json({ message: `Success!` })
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log({ Message: `Error: ${err}` }));
 }); // update project, recieve updated project
 
 router.delete('/:id', (req, res) => {
@@ -38,14 +38,14 @@ router.delete('/:id', (req, res) => {
     .then(removedProjectCount => {
       res.json({ message: `Success: ${req.params.id} was deleted. Removed ${removedProjectCount} action.` })
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log({ Message: `Error: ${err}` }));
 })
 router.get('/projectactions/:id', (req, res) => {
   projectModel.getProjectActions(req.params.id)
     .then(project => {
       res.json(project);
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log({ Message: `Error: ${err}` }));
 }); // supply project ID, recieve project actions
 
 module.exports = router;
